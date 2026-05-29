@@ -110,7 +110,7 @@ adb push ubuntu_command /cache/recovery/ubuntu_command >/dev/null
 # Verify the largest file landed at the right size — adb push has been
 # observed to truncate the rootfs tarball on macOS; the install will fail
 # with "xzcat: corrupted data" if so.
-ROOTFS_LOCAL="$(stat -f%z rootfs-*.tar.xz)"
+ROOTFS_LOCAL="$(filesize rootfs-*.tar.xz)"
 ROOTFS_REMOTE="$(adb shell wc -c /cache/recovery/rootfs-*.tar.xz | awk '{print $1}' | tr -d '\r')"
 [[ "$ROOTFS_LOCAL" == "$ROOTFS_REMOTE" ]] || \
   die "rootfs push truncated: local=$ROOTFS_LOCAL remote=$ROOTFS_REMOTE — re-run step 4"

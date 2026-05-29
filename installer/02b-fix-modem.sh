@@ -53,7 +53,7 @@ if [[ ! -f "$NON_HLOS" ]]; then
     "$BE82CB_ZIP" --output "$EXTRACT_DIR" 2>&1 | tail -5
   [[ -f "$NON_HLOS" ]] || die "extraction failed — NON-HLOS.bin not present in $EXTRACT_DIR"
 fi
-ok "BE82CB modem firmware: $NON_HLOS ($(stat -f%z "$NON_HLOS") bytes)"
+ok "BE82CB modem firmware: $NON_HLOS ($(filesize "$NON_HLOS") bytes)"
 
 # --- 2. Reboot to bootloader-fastboot ---------------------------------------
 say "waiting for adb"

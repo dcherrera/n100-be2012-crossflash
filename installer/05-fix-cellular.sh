@@ -69,7 +69,7 @@ mkdir -p "$TMP"
 # --- 1. Pull stock ofonod ---------------------------------------------------
 say "pulling stock ofonod"
 adb pull /usr/sbin/ofonod "$TMP/ofonod.orig" >/dev/null
-SIZE="$(stat -f%z "$TMP/ofonod.orig")"
+SIZE="$(filesize "$TMP/ofonod.orig")"
 [[ "$SIZE" == "1824688" ]] || \
   die "ofonod size $SIZE != 1824688 — UT updated, offsets need re-derivation"
 

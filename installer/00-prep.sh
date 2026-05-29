@@ -4,17 +4,36 @@
 set -euo pipefail
 source "$(dirname "$0")/lib/common.sh"
 
-say "checking host tooling"
-require_cmd brew
+say "checking host tooling (OS: $HOST_OS)"
 require_cmd python3
 require_cmd curl
 require_cmd git
 require_cmd unzip
 
-if ! brew list libusb >/dev/null 2>&1; then
-  say "installing libusb (needed by bkerler/edl)"
-  brew install libusb
-fi
+case "$HOST_OS" in
+  mac)
+    require_cmd brew
+    if ! brew list libusb >/dev/null 2>&1; then
+      say "installing libusb (needed by bkerler/edl)"
+      brew install libusb
+    fi
+    ;;
+  linux)
+    # On Linux, libusb is normally a package: libusb-1.0-0-dev on Debian/Ubuntu,
+    # libusbx on Fedora. We don't auto-install (too many distros) — just check
+    # that the .so is findable.
+    if ! ldconfig -p 2>/dev/null | grep -q "libusb-1.0.so" \
+       && ! find /usr/lib /usr/local/lib -name 'libusb-1.0.so*' 2>/dev/null | grep -q .; then
+      die "libusb-1.0 not found.
+       Debian/Ubuntu: sudo apt install libusb-1.0-0-dev
+       Fedora:        sudo dnf install libusbx
+       Arch:          sudo pacman -S libusb"
+    fi
+    ;;
+  *)
+    die "unsupported host OS — this installer targets macOS or Linux"
+    ;;
+esac
 
 # --- External tools: clone, then install into a venv at the repo root --------
 TOOLS_DIR="$REPO_DIR/tools"
@@ -168,13 +187,18 @@ if [[ ! -f "$MB_BIN" ]]; then
 fi
 ok "magiskboot (arm64): $MB_BIN"
 
-# --- Android platform-tools (adb / fastboot) for macOS ----------------------
+# --- Android platform-tools (adb / fastboot) --------------------------------
 if [[ ! -x "$PLATFORM_TOOLS/adb" ]]; then
-  say "fetching Android platform-tools for macOS"
+  case "$HOST_OS" in
+    mac)   PT_FLAVOR=darwin ;;
+    linux) PT_FLAVOR=linux  ;;
+    *)     die "no platform-tools download for HOST_OS=$HOST_OS" ;;
+  esac
+  say "fetching Android platform-tools ($PT_FLAVOR)"
   mkdir -p "$REPO_DIR/host-tools"
-  PT_ZIP="$REPO_DIR/host-tools/platform-tools-darwin.zip"
+  PT_ZIP="$REPO_DIR/host-tools/platform-tools-$PT_FLAVOR.zip"
   curl -fL --progress-bar -o "$PT_ZIP" \
-    https://dl.google.com/android/repository/platform-tools-latest-darwin.zip
+    "https://dl.google.com/android/repository/platform-tools-latest-$PT_FLAVOR.zip"
   unzip -q -o -d "$REPO_DIR/host-tools" "$PT_ZIP"
   rm -f "$PT_ZIP"
 fi

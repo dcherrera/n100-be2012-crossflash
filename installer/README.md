@@ -32,8 +32,8 @@ Captures every step we actually went through to land Ubuntu Touch on a
 | Requirement | Why |
 | --- | --- |
 | **OnePlus Nord N100, model BE2012** | This installer is specific to this SKU. BE2013/BE83BA users should use the stock UBports installer. |
-| **macOS** (tested on Apple Silicon, macOS 26.2) | The Python tooling is cross-platform but tested on this. |
-| **Python 3.10+**, `brew install libusb` | For the EDL Firehose client. |
+| **macOS** (tested on Apple Silicon, macOS 26.2) **or Linux** (designed to work, untested end-to-end — scripts auto-detect OS) | Underlying Python tooling is cross-platform. |
+| **Python 3.10+** + libusb (`brew install libusb` on macOS; `apt install libusb-1.0-0-dev` on Debian/Ubuntu; `dnf install libusbx` on Fedora) | For the EDL Firehose client. |
 | **USB-C data cable** (not charge-only) | EDL + fastboot. |
 | **~13 GB free disk** | BE2013 firmware + BE82CB firmware + UT system-image cache. |
 | **Network** | Downloads BE2013 OOS ZIP + Ubuntu Touch system-image files. |

@@ -1,9 +1,17 @@
 # n100-be2012-crossflash
 
+> A [TeamIDE](https://teamide.dev) project. If this saved you a phone, [chip in](https://teamide.dev/support).
+
 Reproducible installer that takes a **carrier-locked OnePlus Nord N100
 BE2012 (T-Mobile US)** and lands it on **Ubuntu Touch 24.04 (noble)**.
-Driven entirely from **macOS** — no Windows, no MSMDownloadTool, no
-borrowed PC.
+
+**Built and tested on macOS** (Apple Silicon, macOS 26.2). Linux should
+also work — the underlying tooling (`bkerler/edl`, `oppo_decrypt`,
+`fastboot`, `magiskboot`) is cross-platform, and the wrapper scripts
+auto-detect OS where it matters. Linux hasn't been independently
+verified end-to-end yet; success reports welcome.
+
+**No Windows.** No MSMDownloadTool, no borrowed PC, no VM.
 
 If you have a BE2013 (Global) or BE83BA (EU) N100, **use the stock
 [UBports installer](https://devices.ubuntu-touch.io/installer/)
@@ -199,3 +207,34 @@ error). PRs welcome.
 
 Tested end-to-end on a single BE2012 unit (T-Mobile US, Apple Silicon
 host, macOS 26.2). Reproductions, issue reports, and PRs welcome.
+
+## Support the work
+
+If this installer saved you from buying another phone, kept your BE2012
+out of a drawer, or unblocked a port you were stuck on — back the
+ongoing [TeamIDE](https://teamide.dev) work at
+[teamide.dev/support](https://teamide.dev/support). Sustains research
+into the next variant, the next carrier-locked SKU, the next
+ofono-on-Halium quirk.
+
+Bug reports and pull requests for *this* repo go in
+[GitHub issues](https://github.com/dcherrera/n100-be2012-crossflash/issues).
+
+## Hire TeamIDE
+
+Need work like this for your device, your fleet, your port? See
+[HIRE.md](HIRE.md) for what we work on and engagement options, or
+go straight to [teamide.dev/contact](https://teamide.dev/contact).
+Browse our [products](https://teamide.dev/products) and
+[portfolio](https://dcherrera-portfolio-main.teamide.dev/) for the
+shape of what we ship.
+
+---
+
+<sub>A [TeamIDE](https://teamide.dev) project &nbsp;·&nbsp;
+[Products](https://teamide.dev/products) &nbsp;·&nbsp;
+[Portfolio](https://dcherrera-portfolio-main.teamide.dev/) &nbsp;·&nbsp;
+[Contact](https://teamide.dev/contact) &nbsp;·&nbsp;
+[Back it](https://teamide.dev/support) &nbsp;·&nbsp;
+[Hire](HIRE.md) &nbsp;·&nbsp;
+[GPL-2.0-or-later](LICENSE)</sub>

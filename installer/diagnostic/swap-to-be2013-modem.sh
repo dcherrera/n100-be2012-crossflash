@@ -14,7 +14,7 @@ source "$HERE/lib/common.sh"
 
 BE2013_MODEM="$CROSSFLASH_DIR/firmware/extracted/bengal_14_O.06_201113/extract/NON-HLOS.bin"
 [[ -f "$BE2013_MODEM" ]] || die "BE2013 modem not found at $BE2013_MODEM"
-say "BE2013 modem: $BE2013_MODEM ($(stat -f%z "$BE2013_MODEM") bytes)"
+say "BE2013 modem: $BE2013_MODEM ($(filesize "$BE2013_MODEM") bytes)"
 
 # 1. Reboot to bootloader
 say "waiting for adb"
