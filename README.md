@@ -2,6 +2,37 @@
 
 > A [TeamIDE](https://teamide.dev) project. If this saved you a phone, [chip in](https://teamide.dev/support).
 
+> **Read this before you do anything.** This is not a user-friendly
+> installer. It is a research record of how we cracked one specific
+> carrier-locked SKU, written up so other people with the same model
+> and the same problem don't have to start from zero. Several steps
+> require manual judgment, comfort with a terminal, the ability to
+> read an error message and reason about what it means, and a tolerance
+> for steps that don't always work the first time. If `adb`, `fastboot`,
+> `sudo`, `dd`, and `EDL mode` aren't already familiar concepts to
+> you, this is not the project to learn them on. The actual hard-brick
+> risk is low (EDL is hardware-rooted in the Qualcomm SoC and survives
+> almost every software state), but you can absolutely:
+>
+> - lose all data on the device, multiple times
+> - void any remaining manufacturer or carrier warranty
+> - lose your line on T-Mobile until you call support and get the IMEI
+>   re-whitelisted for VoLTE
+> - end up with a phone that runs Ubuntu Touch but won't attach to your
+>   current SIM (the modem/SIM/carrier match is its own problem — see
+>   the "Cellular caveats" section)
+> - spend a weekend on it
+>
+> This installer is provided as-is under [GPL-2.0-or-later](LICENSE).
+> No warranty, no support contract, no obligation on us to fix it for
+> your specific device. If you brick your phone, it's your phone.
+> If you don't have the skills to recover from a step going sideways,
+> stop here and either pay someone who does (see [HIRE.md](HIRE.md))
+> or use a phone with an officially supported UBports path. We are
+> sharing this because it took real work to figure out and other people
+> with the same locked SKU shouldn't have to repeat it — not because
+> we recommend it as a path for anyone in particular.
+
 Reproducible installer that takes a **carrier-locked OnePlus Nord N100
 BE2012 (T-Mobile US)** and lands it on **Ubuntu Touch 24.04 (noble)**.
 
