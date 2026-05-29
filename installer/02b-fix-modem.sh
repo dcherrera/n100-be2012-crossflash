@@ -46,8 +46,10 @@ if [[ ! -f "$NON_HLOS" ]]; then
   say "extracting NON-HLOS.bin from BE82CB.zip (this is the modem firmware)"
   mkdir -p "$EXTRACT_DIR"
   # The BE82CB.zip contains a nested .ops which contains the actual partitions.
-  # We use the same opscrypto tooling as 00-prep.sh / 01-cross-flash.sh.
-  python3 "$CROSSFLASH_DIR/tools/oppo_decrypt/opscrypto.py" decrypt \
+  # opscrypto requires pycryptodome/docopt, which only live in the venv set
+  # up by 00-prep.sh — must not use the system python3 here.
+  [[ -x "$EDL_VENV/bin/python" ]] || die "venv missing — run ./00-prep.sh first"
+  "$EDL_VENV/bin/python" "$REPO_DIR/tools/oppo_decrypt/opscrypto.py" decrypt \
     "$BE82CB_ZIP" --output "$EXTRACT_DIR" 2>&1 | tail -5
   [[ -f "$NON_HLOS" ]] || die "extraction failed — NON-HLOS.bin not present in $EXTRACT_DIR"
 fi
